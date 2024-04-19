@@ -40,7 +40,8 @@ Before preparing task-specific data, **you MUST first download [eval.zip](https:
 ### QUILT-VQA
 
 1. Download [`quilt_vqa image zip`](https://huggingface.co/datasets/wisdomik/Quilt_VQA/blob/main/quilt_vqa.zip), unzip and put it under `./playground/data/eval/quiltvqa/images`.
-2. Sinlge-GPU inference.
+2. Download the test annotation files [`quiltvqa_test_w_ans.json`](https://huggingface.co/datasets/wisdomik/Quilt_VQA/blob/main/quiltvqa_test_w_ans.json) and [`quiltvqa_test_wo_ans.jsonl`](https://huggingface.co/datasets/wisdomik/Quilt_VQA/blob/main/quiltvqa_test_wo_ans.jsonl) and place under `./playground/data/eval/quiltvqa/`
+3. Sinlge-GPU inference.
 ```Shell
 CUDA_VISIBLE_DEVICES=0 bash scripts/v1_5/eval/quilt_vqa.sh
 ```
@@ -48,7 +49,8 @@ CUDA_VISIBLE_DEVICES=0 bash scripts/v1_5/eval/quilt_vqa.sh
 ### QUILT-VQA-RED
 
 1. Download [`red_circle image zip`](https://huggingface.co/datasets/wisdomik/QuiltVQA_RED/blob/main/red_circle.zip), unzip and put it under `./playground/data/eval/quiltvqa/red_circle`.
-2. Single-GPU inference.
+2. Download the test annotation files:  [`quiltvqa_nored_test_wo_ans.jsonl`](https://huggingface.co/datasets/wisdomik/QuiltVQA_RED/blob/main/quiltvqa_nored_test_wo_ans.jsonl), [`quiltvqa_red_test_w_ans.json`](https://huggingface.co/datasets/wisdomik/QuiltVQA_RED/blob/main/quiltvqa_red_test_w_ans.json), and [`quiltvqa_red_test_wo_ans.jsonl`](https://huggingface.co/datasets/wisdomik/QuiltVQA_RED/blob/main/quiltvqa_red_test_wo_ans.jsonl) and place under `./playground/data/eval/quiltvqa/`
+3. Single-GPU inference.
 ```Shell
 CUDA_VISIBLE_DEVICES=0 bash scripts/v1_5/eval/quilt_red_vqa.sh
 ```
