@@ -12,7 +12,8 @@ deepspeed llava/train/train_mem.py \
     --mm_vision_select_layer -2 \
     --mm_use_im_start_end False \
     --mm_use_im_patch_token False \
-    --bf16 True \
+    #--bf16 True \  # Set to True if you have the hardware support this.
+    --fp16 True \  # Switch to bf16 if we have Ampere GPUs.
     --output_dir ./checkpoints/quilt-llava-v1.5-7b-pretrain \
     --num_train_epochs 1 \
     --per_device_train_batch_size 32 \
@@ -27,7 +28,7 @@ deepspeed llava/train/train_mem.py \
     --warmup_ratio 0.03 \
     --lr_scheduler_type "cosine" \
     --logging_steps 1 \
-    --tf32 True \
+    --tf32 False \  # Set to True if you have the hardware support this (A100)
     --model_max_length 2048 \
     --gradient_checkpointing True \
     --dataloader_num_workers 4 \

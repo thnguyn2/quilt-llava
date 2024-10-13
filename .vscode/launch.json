@@ -1,0 +1,71 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+
+
+
+        {
+            "name": "Python Debugger: Current File with Arguments",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "${command:pickArgs}"
+            ]
+        },
+        // https://github.com/microsoft/DeepSpeed/issues/938#issuecomment-1742254669
+        {
+            "name": "Pretraining",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "deepspeed.launcher.runner",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                "llava/train/train_mem.py",
+                "--deepspeed", "./scripts/zero2.json",
+                "--model_name_or_path", "lmsys/vicuna-7b-v1.5",
+                "--version", "plain",
+                "--data_path", "/jupyter-users-home/tan-2enguyen/datasets/pathology/quilt/quilt_llava/Quilt-LLaVA-Pretrain/quilt_pretrain.json",
+                "--image_folder", "/jupyter-users-home/tan-2enguyen/datasets/pathology/quilt/quilt_llava/Quilt-LLaVA-Pretrain/quilt_1m",
+                "--vision_tower", "wisdomik/QuiltNet-B-32",
+                "--mm_projector_type", "mlp2x_gelu",
+                "--tune_mm_mlp_adapter", "True",
+                "--mm_vision_select_layer", "-2",
+                "--mm_use_im_start_end", "False",
+                "--mm_use_im_patch_token", "False",
+                //"--bf16", "True",  // Turn this on once we have Ampere GPUs.
+                "--fp16", "True",
+                "--output_dir", "./checkpoints/quilt-llava-v1.5-7b-pretrain",
+                "--num_train_epochs", "1", 
+                "--per_device_train_batch_size", "32",
+                "--per_device_eval_batch_size", "4",
+                "--gradient_accumulation_steps", "1",
+                "--evaluation_strategy", "no",
+                "--save_strategy", "steps",
+                "--save_steps", "800",
+                "--save_total_limit", "1",
+                "--learning_rate", "1e-3",
+                "--weight_decay", "0.",
+                "--warmup_ratio", "0.03",
+                "--lr_scheduler_type", "cosine",
+                "--logging_steps", "1",
+                "--tf32", "False",  // Set to True if we have Ampere GPUs.
+                "--model_max_length", "2048",
+                "--gradient_checkpointing", "True",
+                "--dataloader_num_workers", "4",
+                "--lazy_preprocess", 
+                "True",
+                "--report_to", "wandb",
+            ]
+        }
+    ]
+}
+
+
+

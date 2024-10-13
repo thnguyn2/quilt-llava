@@ -84,6 +84,7 @@ def forward(
         qkv = qkv.reshape(bsz, q_len, -1)
         qkv, indices, cu_q_lens, max_s = unpad_input(qkv, key_padding_mask)
         qkv = qkv.view(-1, 3, self.num_heads, self.head_dim)
+        
         output_unpad = flash_attn_unpadded_qkvpacked_func(
             qkv, cu_q_lens, max_s, 0.0, softmax_scale=None, causal=True
         )
@@ -108,8 +109,11 @@ def replace_llama_attn_with_flash_attn():
         warnings.warn(
             "Flash attention is only supported on A100 or H100 GPU during training due to head dim > 64 backward."
             "ref: https://github.com/HazyResearch/flash-attention/issues/190#issuecomment-1523359593"
+            "Use normal attention for now"
         )
-    transformers.models.llama.modeling_llama.LlamaModel._prepare_decoder_attention_mask = (
-        _prepare_decoder_attention_mask
-    )
-    transformers.models.llama.modeling_llama.LlamaAttention.forward = forward
+    else:
+        # Only monkey patching when provided the right hardware.
+        transformers.models.llama.modeling_llama.LlamaModel._prepare_decoder_attention_mask = (
+            _prepare_decoder_attention_mask
+        )
+        transformers.models.llama.modeling_llama.LlamaAttention.forward = forward

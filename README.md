@@ -84,18 +84,21 @@ git clone https://github.com/aldraus/quilt-llava.git
 cd quilt-llava
 ```
 
-2. Install Package
+2. Install Package (to run on PathAI's cluster)
 ```Shell
 conda create -n qllava python=3.10 -y
 conda activate qllava
+conda install cudatoolkit=11.7 -c pytorch
+conda install -c conda-forge cudatoolkit-dev
 pip install --upgrade pip  # enable PEP 660 support
 pip install -e .
 ```
 
+
 3. Install additional packages for training cases
 ```
 pip install -e ".[train]"
-pip install flash-attn --no-build-isolation
+pip install flash-attn==1.0.9 --no-build-isolation
 ```
 ### CLI Inference
 

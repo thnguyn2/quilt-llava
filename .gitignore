@@ -1,0 +1,4 @@
+*__pycache__*
+llava.egg-info/
+.ipynb_checkpoints/
+wandb/
