@@ -4,6 +4,11 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
+
+
+
+
         // https://github.com/microsoft/DeepSpeed/issues/938#issuecomment-1742254669
         {
             "name": "Pre-training",
@@ -29,7 +34,7 @@
                 "--fp16", "True",
                 "--output_dir", "./checkpoints/quilt-llava-v1.5-7b-pretrain",
                 "--num_train_epochs", "1", 
-                "--per_device_train_batch_size", "64",
+                "--per_device_train_batch_size", "4",
                 "--per_device_eval_batch_size", "4",
                 "--gradient_accumulation_steps", "1",
                 "--evaluation_strategy", "no",
@@ -44,10 +49,25 @@
                 "--tf32", "False",  // Set to True if we have Ampere GPUs.
                 "--model_max_length", "2048",
                 "--gradient_checkpointing", "True",
-                "--dataloader_num_workers", "4",
+                "--dataloader_num_workers", "1",
                 "--lazy_preprocess", 
                 "True",
                 "--report_to", "wandb",
+            ]
+        },
+        {
+            "name": "VQA Inference",
+            "type": "debugpy",
+            "module": "llava.serve.cli",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                "--model-path", 
+                "wisdomik/Quilt-Llava-v1.5-7b",
+                "--image-file",
+                "https://wisdomikezogwo.github.io/images/eval_example_3_.jpg",
+                "--load-8bit",
             ]
         },
         {
@@ -80,7 +100,7 @@
                 "--fp16", "True",
                 "--output_dir", "./checkpoints/quilt-llava-v1.5-7b-lora-f-1eps",
                 "--num_train_epochs", "1",
-                "--per_device_train_batch_size", "16",
+                "--per_device_train_batch_size", "12",
                 "--per_device_eval_batch_size", "4",
                 "--gradient_accumulation_steps", "1",
                 "--evaluation_strategy", "no",

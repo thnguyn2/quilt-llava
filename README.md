@@ -129,6 +129,8 @@ Quilt-LLaVA training consists of two stages: (1) feature alignment stage: use ou
 
 Quilt-LLaVA is trained on 4 A100 GPUs with 80GB memory. To train on fewer GPUs, you can reduce the `per_device_train_batch_size` and increase the `gradient_accumulation_steps` accordingly. Always keep the global batch size the same: `per_device_train_batch_size` x `gradient_accumulation_steps` x `num_gpus`.
 
+To select specific GPUs in training, run `export CUDA_VISIBLE_DEVICES=0,1,...`, depending on what GPUs that you want ot use.  
+
 
 ### Hyperparameters
 We use a similar set of hyperparameters as Vicuna in finetuning.  Both hyperparameters used in pretraining and finetuning are provided below.

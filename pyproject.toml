@@ -17,6 +17,7 @@ dependencies = [
     "torchvision @ https://download.pytorch.org/whl/cu117/torchvision-0.15.2%2Bcu117-cp310-cp310-linux_x86_64.whl#sha256=1ee57f2bee878ad8574ea559bb7172c1cfaad168634fa738479e1fe3bdd7eaca",
     "transformers==4.33.2", "tokenizers>=0.12.1,<0.14", "sentencepiece==0.1.99", "shortuuid",
     "accelerate==0.21.0", "peft==0.4.0", "bitsandbytes==0.41.0",
+    "datasets",
     "pydantic<2,>=1", "markdown2[all]", "numpy==1.26.4", "scikit-learn==1.2.2",
     "gradio==3.35.2", "gradio_client==0.2.9",
     "requests", "httpx==0.24.0", "uvicorn", "fastapi",
